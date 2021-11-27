@@ -8,69 +8,68 @@ package.path = path.."/?.lua;" .. package.path
 local colors = require("colors")
 colors.bg = colors.background
 colors.fg = colors.foreground
-colors.grey = "#363940"
-colors.grey1 = "#363940"
+colors.grey = util.lighten(colors.black, 0.85)
+colors.grey1 = util.lighten(colors.light_black, 0.85)
 
 M.colors = colors
 
 M.setup = function(conf)
     conf = conf or config
-    local x = colors
     local c = {}
 
     c = {
-        bg = x.bg,
-        bg_dark = util.darken(x.bg, 0.95),
-        bg_highlight = util.darken(x.grey, 0.960),
+        bg = colors.bg,
+        bg_dark = util.darken(colors.bg, 0.95),
+        bg_highlight = util.darken(colors.grey, 0.960),
 
-        fg = x.fg,
-        fg_dark = util.lighten(x.fg, 0.95),
-        fg_gutter = util.lighten(x.fg, 0.25),
+        fg = colors.fg,
+        fg_dark = util.lighten(colors.fg, 0.95),
+        fg_gutter = util.lighten(colors.fg, 0.25),
 
-        red = x.red,
-        red1 = util.darken(x.red, 0.90),
+        red = colors.red,
+        red1 = util.darken(colors.red, 0.90),
 
-        green = x.green,
-        green1 = util.darken(x.green, 0.95),
-        green2 = util.darken(x.green, 0.75),
-        teal = util.darken(x.green, 0.80),
+        green = colors.green,
+        green1 = util.darken(colors.green, 0.95),
+        green2 = util.darken(colors.green, 0.75),
+        teal = util.darken(colors.green, 0.80),
 
-        yellow = x.yellow,
-        orange = util.lighten(x.yellow, 0.15),
+        yellow = colors.yellow,
+        orange = util.lighten(colors.yellow, 0.15),
 
-        blue = x.blue,
-        blue0 = util.darken(x.blue, 0.55),
-        blue7 = util.darken(x.blue, 0.45),
+        blue = colors.blue,
+        blue0 = util.darken(colors.blue, 0.55),
+        blue7 = util.darken(colors.blue, 0.45),
 
-        cyan = x.cyan,
-        blue1 = util.darken(x.cyan, 0.75),
-        blue2 = util.darken(x.cyan, 0.80),
-        blue5 = util.darken(x.cyan, 0.975),
-        blue6 = util.lighten(x.cyan, 0.075),
+        cyan = colors.cyan,
+        blue1 = util.darken(colors.cyan, 0.75),
+        blue2 = util.darken(colors.cyan, 0.80),
+        blue5 = util.darken(colors.cyan, 0.975),
+        blue6 = util.lighten(colors.cyan, 0.075),
 
-        magenta = x.magenta,
-        magenta2 = util.lighten(x.magenta, 0.55),
-        purple = util.darken(x.magenta, 0.85),
+        magenta = colors.magenta,
+        magenta2 = util.lighten(colors.magenta, 0.55),
+        purple = util.darken(colors.magenta, 0.85),
 
         -- Others
         none = "NONE",
-        grey = x.grey,
-        grey1 = x.grey1,
-        dark3 = util.darken(x.fg, 0.40),
-        dark5 = util.darken(x.fg, 0.80),
-        comment = util.darken(x.fg, 0.50),
-        terminal_black = util.darken(x.black, 0.95),
+        grey = colors.grey,
+        grey1 = colors.grey1,
+        dark3 = util.darken(colors.fg, 0.40),
+        dark5 = util.darken(colors.fg, 0.80),
+        comment = util.darken(colors.fg, 0.50),
+        terminal_black = util.darken(colors.black, 0.95),
 
         git = {
-            change = util.darken(x.blue, 0.90),
-            add = util.darken(x.green, 0.95),
-            delete = util.darken(x.red, 0.90),
-            conflict = util.darken(x.red, 0.85),
+            change = util.darken(colors.blue, 0.90),
+            add = util.darken(colors.green, 0.95),
+            delete = util.darken(colors.red, 0.90),
+            conflict = util.darken(colors.red, 0.85),
         },
         gitSigns = {
-            add = util.darken(x.green, 0.85),
-            change = util.darken(x.blue, 0.95),
-            delete = util.darken(x.red, 0.90),
+            add = util.darken(colors.green, 0.85),
+            change = util.darken(colors.blue, 0.95),
+            delete = util.darken(colors.red, 0.90),
         },
     }
 
@@ -83,12 +82,6 @@ M.setup = function(conf)
         text = c.blue7,
     }
 
-    -- colors.gitSigns = {
-    --     add = util.lighten(colors.gitSigns.add, 0.2),
-    --     change = util.lighten(colors.gitSigns.change, 0.2),
-    --     delete = util.lighten(colors.gitSigns.delete, 0.2),
-    -- }
-
     c.git.ignore = c.dark3
     c.black = util.darken(c.bg, 0.95)
     c.border_highlight = c.blue0
@@ -96,7 +89,7 @@ M.setup = function(conf)
 
     -- Popups and statusline always get a dark background
     c.bg_popup = c.bg_dark
-    c.bg_statusline = x.grey or c.bg_dark
+    c.bg_statusline = colors.grey or c.bg_dark
 
     -- Sidebar and Floats are configurable
     c.bg_sidebar = (conf.transparentSidebar and c.none)
