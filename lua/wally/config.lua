@@ -1,17 +1,11 @@
 ---@class Config
 local config
 
--- shim vim for kitty and other generators
-vim = vim or { g = {}, o = {} }
-
 local function opt(key, default)
-    key = "wally" .. key
-    if vim.g[key] == nil then
-        return default
-    end
-    if vim.g[key] == 0 then
-        return false
-    end
+    key = "wally_" .. key
+    if vim.g[key] == nil then return default end
+    if vim.g[key] == 0 then return false end
+
     return vim.g[key]
 end
 
