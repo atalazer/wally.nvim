@@ -2,8 +2,8 @@
 Neovim colorscheme based on pywal
 
 ## ⚡️ Requirements
-- Neovim >= 0.5.0
-- pywal
+- [Neovim](https://neovim.io/) >= 0.5.0
+- [pywal](https://github.com/dylanaraps/pywal)
 
 ## 📦 Installation
 Install the theme with your preferred package manager:
@@ -11,7 +11,7 @@ Install the theme with your preferred package manager:
 ```lua
 use({
    "atalazer/wally.nvim",
-   run = "cp ./extra/wal/colors.lua ~/.config/wal/templates && wal -R",
+   run = "./setup.sh",
    setup = function()
       YOUR_CONFIGURATION_SETUP
    end,
