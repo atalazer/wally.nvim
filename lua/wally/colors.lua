@@ -11,8 +11,6 @@ colors.fg = colors.foreground
 colors.grey = util.lighten(colors.black, 0.85)
 colors.grey1 = util.lighten(colors.light_black, 0.85)
 
-M.colors = colors
-
 M.setup = function(conf)
     conf = conf or config
     local c = {}

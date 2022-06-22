@@ -5,7 +5,7 @@ local config = require("wally.config")
 
 local M = {}
 
-function M.colorscheme()
+M.colorscheme = function()
     util.load(theme.setup())
 end
 

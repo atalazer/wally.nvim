@@ -5,7 +5,7 @@ local util = {}
 util.bg = "#000000"
 util.fg = "#ffffff"
 
-local function hexToRgb(hex_str)
+local hexToRgb = function(hex_str)
     local hex = "[abcdef0-9][abcdef0-9]"
     local pat = "^#(" .. hex .. ")(" .. hex .. ")(" .. hex .. ")$"
     hex_str = string.lower(hex_str)
@@ -16,7 +16,7 @@ local function hexToRgb(hex_str)
     return { tonumber(r, 16), tonumber(g, 16), tonumber(b, 16) }
 end
 
-function util.blend(fg, bg, alpha)
+util.blend = function(fg, bg, alpha)
     bg = hexToRgb(bg)
     fg = hexToRgb(fg)
 
@@ -28,15 +28,15 @@ function util.blend(fg, bg, alpha)
     return string.format("#%02X%02X%02X", blendChannel(1), blendChannel(2), blendChannel(3))
 end
 
-function util.darken(hex, amount, bg)
+util.darken = function(hex, amount, bg)
     return util.blend(hex, bg or util.bg, math.abs(amount))
 end
 
-function util.lighten(hex, amount, fg)
+util.lighten = function(hex, amount, fg)
     return util.blend(hex, fg or util.fg, math.abs(amount))
 end
 
-function util.brighten(color, percentage)
+util.brighten = function(color, percentage)
     local hsl = hsluv.hex_to_hsluv(color)
     local larpSpace = 100 - hsl[3]
     if percentage < 0 then
@@ -46,7 +46,7 @@ function util.brighten(color, percentage)
     return hsluv.hsluv_to_hex(hsl)
 end
 
-function util.highlight(group, color)
+util.highlight = function(group, color)
     local style = color.style and "gui=" .. color.style or "gui=NONE"
     local fg = color.fg and "guifg=" .. color.fg or "guifg=NONE"
     local bg = color.bg and "guibg=" .. color.bg or "guibg=NONE"
@@ -62,14 +62,14 @@ function util.highlight(group, color)
 end
 
 --- Delete the autocmds when the theme changes to something else
-function util.onColorScheme()
+util.onColorScheme = function()
     if vim.g.colors_name ~= "wally" then
         vim.cmd([[autocmd! wally]])
         vim.cmd([[augroup! wally]])
     end
 end
 
-function util.autocmds(config)
+util.autocmds =  function(config)
     vim.cmd([[augroup wally]])
     vim.cmd([[  autocmd!]])
     vim.cmd([[  autocmd ColorScheme * lua require("wally.util").onColorScheme()]])
@@ -85,13 +85,13 @@ function util.autocmds(config)
     vim.cmd([[augroup end]])
 end
 
-function util.syntax(syntax)
+util.syntax = function(syntax)
     for group, colors in pairs(syntax) do
         util.highlight(group, colors)
     end
 end
 
-function util.terminal(colors)
+util.terminal = function(colors)
     -- dark
     vim.g.terminal_color_0 = colors.black
     vim.g.terminal_color_8 = colors.terminal_black
@@ -121,15 +121,14 @@ function util.terminal(colors)
 
 end
 
-function util.load(theme)
-    -- only needed to clear when not the default colorscheme
+util.load = function(theme)
     if vim.g.colors_name then
         vim.cmd("hi clear")
     end
 
-    -- if vim.fn.exists("syntax_on") then
-    --     vim.cmd("syntax reset")
-    -- end
+    if vim.fn.exists("syntax_on") then
+        vim.cmd("syntax reset")
+    end
 
     vim.o.termguicolors = true
     vim.g.colors_name = "wally"
