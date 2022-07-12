@@ -136,8 +136,13 @@ util.load = function(theme)
     -- load base theme
     util.syntax(theme.base)
     util.syntax(theme.plugins)
-    util.terminal(theme.colors)
+
+    if theme.config.terminalColors then
+        util.terminal(theme.colors)
+    end
+
     util.autocmds(theme.config)
+
 end
 
 return util

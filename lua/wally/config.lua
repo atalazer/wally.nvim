@@ -19,6 +19,7 @@ config = {
     darkFloat = opt("dark_float", true),
     darkSidebar = opt("dark_sidebar", true),
     transparentSidebar = opt("transparent_sidebar", false),
+    terminalColors = opt("terminal_colors", false),
     sidebars = opt("sidebars", {}),
 }
 
